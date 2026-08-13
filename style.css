@@ -1,0 +1,239 @@
+/* ===== Palette =====
+   Fond crème doux   : #FBFAF7
+   Carte             : #FFFFFF
+   Vert-bleu (marque): #1B5E63
+   Vert-bleu clair   : #EAF3F2
+   Texte principal   : #1F2A2A
+   Texte secondaire  : #5B6E6C
+   Alerte / rupture  : #B0522C
+   Bordure douce     : #DDE7E5
+*/
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #FBFAF7;
+  color: #1F2A2A;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 19px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- En-tête ---------- */
+.top-bar {
+  background: #1B5E63;
+  color: #ffffff;
+  padding: env(safe-area-inset-top, 0) 0 0 0;
+}
+.top-bar-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-mark {
+  display: inline-flex;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+.top-bar h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+/* ---------- Contenu ---------- */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 22px 18px 60px;
+}
+
+.search-section {
+  margin-bottom: 22px;
+}
+
+.search-label {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1B5E63;
+  margin-bottom: 10px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #1B5E63;
+  border-radius: 16px;
+  padding: 0 14px;
+  transition: box-shadow 0.15s ease;
+}
+.search-box:focus-within {
+  box-shadow: 0 0 0 4px rgba(27, 94, 99, 0.18);
+}
+
+.search-icon {
+  color: #1B5E63;
+  flex-shrink: 0;
+}
+
+#search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 22px;
+  padding: 16px 10px;
+  color: #1F2A2A;
+  min-width: 0;
+  font-family: inherit;
+}
+#search-input::placeholder {
+  color: #9AAAA8;
+}
+
+.clear-btn {
+  border: none;
+  background: #EAF3F2;
+  color: #1B5E63;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.clear-btn:active { background: #DDE7E5; }
+
+.status-line {
+  min-height: 24px;
+  margin: 10px 2px 0;
+  font-size: 15px;
+  color: #5B6E6C;
+}
+
+/* ---------- Résultats ---------- */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.med-card {
+  background: #ffffff;
+  border: 1px solid #DDE7E5;
+  border-left: 6px solid #1B5E63;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.med-card.unavailable {
+  border-left-color: #B0522C;
+}
+
+.med-name {
+  font-size: 21px;
+  font-weight: 700;
+  color: #1F2A2A;
+  margin: 0 0 2px;
+}
+
+.med-dosage {
+  font-size: 17px;
+  color: #1B5E63;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.med-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 4px;
+  column-gap: 10px;
+  font-size: 16px;
+}
+.med-details dt {
+  color: #5B6E6C;
+  font-weight: 600;
+}
+.med-details dd {
+  margin: 0;
+  color: #1F2A2A;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  background: #EAF3F2;
+  color: #1B5E63;
+}
+.status-badge.unavailable {
+  background: #F5E4DB;
+  color: #B0522C;
+}
+
+mark {
+  background: #FCE8B0;
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+/* ---------- États vides / erreurs ---------- */
+.empty-state, .no-results, .load-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #5B6E6C;
+}
+.empty-state svg { margin-bottom: 14px; }
+.empty-hint {
+  font-size: 15px;
+  opacity: 0.85;
+}
+.no-results, .load-error {
+  background: #ffffff;
+  border: 1px solid #DDE7E5;
+  border-radius: 14px;
+}
+.load-error strong, .no-results strong {
+  color: #B0522C;
+}
+
+/* ---------- Pied de page ---------- */
+.app-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #9AAAA8;
+}
+
+/* ---------- Accessibilité ---------- */
+:focus-visible {
+  outline: 3px solid #1B5E63;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* Écrans très étroits */
+@media (max-width: 360px) {
+  body { font-size: 17px; }
+  #search-input { font-size: 19px; }
+}
