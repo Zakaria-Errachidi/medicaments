@@ -26,11 +26,14 @@ body {
 
 /* ---------- En-tête ---------- */
 .top-bar {
-  background: #1B5E63;
+  background:
+    linear-gradient(rgba(27, 94, 99, 0.75), rgba(27, 94, 99, 0.75)),
+    url("abdo_background.png") center center / cover no-repeat;
   color: #ffffff;
   padding: env(safe-area-inset-top, 0) 0 0 0;
 }
 .top-bar-inner {
+  
   max-width: 640px;
   margin: 0 auto;
   padding: 18px 20px;
