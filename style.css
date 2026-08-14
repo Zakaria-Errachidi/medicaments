@@ -26,20 +26,27 @@ body {
 
 /* ---------- En-tête ---------- */
 .top-bar {
-  background:
-    linear-gradient(rgba(27, 94, 99, 0.75), rgba(27, 94, 99, 0.75)),
-    url("./abdo_background.png") center center / cover no-repeat;
+  position: relative;
   color: #ffffff;
   padding: env(safe-area-inset-top, 0) 0 0 0;
+  background: url("./abdo_background.png") center center / cover no-repeat;
+  overflow: hidden;
 }
+
 .top-bar-inner {
-  
   max-width: 640px;
   margin: 0 auto;
   padding: 18px 20px;
   display: flex;
   align-items: center;
   gap: 12px;
+
+  position: relative;
+  z-index: 1;
+
+  background: rgba(27, 94, 99, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 .logo-mark {
   display: inline-flex;
