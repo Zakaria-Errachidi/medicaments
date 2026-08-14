@@ -28,7 +28,7 @@ body {
 .top-bar {
   background:
     linear-gradient(rgba(27, 94, 99, 0.75), rgba(27, 94, 99, 0.75)),
-    url("abdo_background.png") center center / cover no-repeat;
+    url("./abdo_background.png") center center / cover no-repeat;
   color: #ffffff;
   padding: env(safe-area-inset-top, 0) 0 0 0;
 }
