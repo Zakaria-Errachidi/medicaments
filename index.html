@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-<title>Recherche de médicaments</title>
-<meta name="description" content="Rechercher un médicament par substance ou par nom">
+<title>Santé au quotidien</title>
+<meta name="description" content="Rechercher un médicament, un aliment aux vertus proches d'un médicament, ou un symptôme">
 
 <!-- PWA -->
 <meta name="theme-color" content="#1B5E63">
@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Médicaments">
+<meta name="apple-mobile-web-app-title" content="Santé">
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -21,59 +21,167 @@
 <header class="top-bar">
   <div class="top-bar-inner">
     <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 48 48" width="30" height="30">
+      <svg viewBox="0 0 48 48" width="28" height="28">
         <rect x="4" y="20" width="40" height="8" rx="4" fill="currentColor" transform="rotate(-45 24 24)"/>
         <rect x="4" y="20" width="18" height="8" rx="4" fill="#ffffff" opacity="0.55" transform="rotate(-45 24 24)"/>
       </svg>
     </span>
-    <h1>Recherche de médicaments</h1>
+    <h1>Santé au quotidien</h1>
   </div>
+
+  <!-- Menu principal -->
+  <nav class="tab-menu" aria-label="Sections">
+    <button class="tab-btn active" data-target="medicaments" type="button">
+      <img src="images/tab-medicaments.png" alt="" class="tab-icon">
+      <span>Médicaments</span>
+    </button>
+    <button class="tab-btn" data-target="aliments" type="button">
+      <img src="images/tab-aliments.png" alt="" class="tab-icon">
+      <span>Aliments</span>
+    </button>
+    <button class="tab-btn" data-target="symptomes" type="button">
+      <img src="images/tab-symptomes.png" alt="" class="tab-icon">
+      <span>Symptômes</span>
+    </button>
+  </nav>
 </header>
 
 <main>
-  <section class="search-section" aria-label="Recherche">
-    <label for="search-input" class="search-label">
-      Tapez le nom d'une substance ou d'un médicament
-    </label>
-    <div class="search-box">
-      <svg class="search-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
-        <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
-      <input
-        id="search-input"
-        type="text"
-        inputmode="search"
-        autocomplete="off"
-        autocorrect="off"
-        spellcheck="false"
-        placeholder="Exemple : paracétamol, doliprane..."
-      >
-      <button id="clear-btn" class="clear-btn" aria-label="Effacer la recherche" hidden>✕</button>
+
+  <!-- ================= SECTION MÉDICAMENTS ================= -->
+  <section id="view-medicaments" class="view active" aria-label="Recherche de médicaments">
+    <div class="search-section">
+      <label for="search-input-medicaments" class="search-label">
+        Tapez le nom d'une substance ou d'un médicament
+      </label>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <input id="search-input-medicaments" type="text" inputmode="search" autocomplete="off"
+               autocorrect="off" spellcheck="false" placeholder="Exemple : paracétamol, doliprane...">
+        <button class="clear-btn" data-clear="medicaments" aria-label="Effacer la recherche" hidden>✕</button>
+      </div>
+      <p class="status-line" id="status-line-medicaments" aria-live="polite"></p>
     </div>
-    <p id="status-line" class="status-line" aria-live="polite"></p>
+
+    <section class="results" id="results-medicaments" aria-label="Résultats"></section>
+
+    <section class="empty-state" id="empty-state-medicaments">
+      <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#C7D6D4" stroke-width="3"/>
+        <path d="M20 32 h24 M32 20 v24" stroke="#C7D6D4" stroke-width="3" stroke-linecap="round" transform="rotate(45 32 32)"/>
+      </svg>
+      <p>Commencez à taper pour voir les médicaments.</p>
+      <p class="empty-hint">Par exemple : « doliprane » ou « paracetamol »</p>
+    </section>
+
+    <section class="no-results" id="no-results-medicaments" hidden>
+      <p><strong>Aucun médicament trouvé.</strong></p>
+      <p>Vérifiez l'orthographe ou essayez un mot plus court.</p>
+    </section>
+
+    <section class="load-error" id="load-error-medicaments" hidden>
+      <p><strong>Impossible de charger la liste des médicaments.</strong></p>
+      <p>Vérifiez votre connexion internet, puis rechargez la page.</p>
+    </section>
   </section>
 
-  <section id="results" class="results" aria-label="Résultats"></section>
+  <!-- ================= SECTION ALIMENTS ================= -->
+  <section id="view-aliments" class="view" aria-label="Aliments aux vertus proches de médicaments" hidden>
+    <img src="images/aliments-banner.jpg" alt="" class="section-banner">
 
-  <section id="empty-state" class="empty-state">
-    <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="none" stroke="#C7D6D4" stroke-width="3"/>
-      <path d="M20 32 h24 M32 20 v24" stroke="#C7D6D4" stroke-width="3" stroke-linecap="round" transform="rotate(45 32 32)"/>
-    </svg>
-    <p>Commencez à taper pour voir les médicaments.</p>
-    <p class="empty-hint">Par exemple : « doliprane » ou « paracetamol »</p>
+    <div class="disclaimer">
+      <strong>À visée éducative uniquement.</strong> Ces aliments ne remplacent jamais un
+      médicament prescrit. Parlez-en à votre médecin ou pharmacien avant tout changement,
+      surtout en cas de traitement anticoagulant (Previscan, Eliquis, Kardégic...).
+    </div>
+
+    <div class="search-section">
+      <label for="search-input-aliments" class="search-label">
+        Tapez un aliment ou une substance (ex : ibuprofène)
+      </label>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <input id="search-input-aliments" type="text" inputmode="search" autocomplete="off"
+               autocorrect="off" spellcheck="false" placeholder="Exemple : gingembre, curcuma, aspirine...">
+        <button class="clear-btn" data-clear="aliments" aria-label="Effacer la recherche" hidden>✕</button>
+      </div>
+      <p class="status-line" id="status-line-aliments" aria-live="polite"></p>
+    </div>
+
+    <section class="results" id="results-aliments" aria-label="Résultats"></section>
+
+    <section class="empty-state" id="empty-state-aliments">
+      <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#C7D6D4" stroke-width="3"/>
+        <path d="M20 32 h24 M32 20 v24" stroke="#C7D6D4" stroke-width="3" stroke-linecap="round" transform="rotate(45 32 32)"/>
+      </svg>
+      <p>Commencez à taper pour voir les aliments.</p>
+      <p class="empty-hint">Par exemple : « gingembre » ou « ibuprofène »</p>
+    </section>
+
+    <section class="no-results" id="no-results-aliments" hidden>
+      <p><strong>Aucun aliment trouvé.</strong></p>
+      <p>Vérifiez l'orthographe ou essayez un mot plus court.</p>
+    </section>
+
+    <section class="load-error" id="load-error-aliments" hidden>
+      <p><strong>Impossible de charger la liste des aliments.</strong></p>
+      <p>Vérifiez votre connexion internet, puis rechargez la page.</p>
+    </section>
   </section>
 
-  <section id="no-results" class="no-results" hidden>
-    <p><strong>Aucun médicament trouvé.</strong></p>
-    <p>Vérifiez l'orthographe ou essayez un mot plus court.</p>
+  <!-- ================= SECTION SYMPTÔMES ================= -->
+  <section id="view-symptomes" class="view" aria-label="Recherche de symptômes" hidden>
+
+    <div class="disclaimer disclaimer-urgent">
+      <strong>En cas d'urgence vitale, appelez immédiatement le 15 (SAMU) ou le 112.</strong>
+      Ces informations sont éducatives et ne remplacent pas un avis médical.
+    </div>
+
+    <div class="search-section">
+      <label for="search-input-symptomes" class="search-label">
+        Tapez un symptôme
+      </label>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <input id="search-input-symptomes" type="text" inputmode="search" autocomplete="off"
+               autocorrect="off" spellcheck="false" placeholder="Exemple : mal de tête, vertiges...">
+        <button class="clear-btn" data-clear="symptomes" aria-label="Effacer la recherche" hidden>✕</button>
+      </div>
+      <p class="status-line" id="status-line-symptomes" aria-live="polite"></p>
+    </div>
+
+    <section class="results" id="results-symptomes" aria-label="Résultats"></section>
+
+    <section class="empty-state" id="empty-state-symptomes">
+      <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#C7D6D4" stroke-width="3"/>
+        <path d="M20 32 h24 M32 20 v24" stroke="#C7D6D4" stroke-width="3" stroke-linecap="round" transform="rotate(45 32 32)"/>
+      </svg>
+      <p>Commencez à taper pour voir les informations.</p>
+      <p class="empty-hint">Par exemple : « fièvre » ou « vertiges »</p>
+    </section>
+
+    <section class="no-results" id="no-results-symptomes" hidden>
+      <p><strong>Aucun symptôme trouvé.</strong></p>
+      <p>Vérifiez l'orthographe ou essayez un mot plus court.</p>
+    </section>
+
+    <section class="load-error" id="load-error-symptomes" hidden>
+      <p><strong>Impossible de charger la liste des symptômes.</strong></p>
+      <p>Vérifiez votre connexion internet, puis rechargez la page.</p>
+    </section>
   </section>
 
-  <section id="load-error" class="load-error" hidden>
-    <p><strong>Impossible de charger la liste des médicaments.</strong></p>
-    <p>Vérifiez votre connexion internet, puis rechargez la page.</p>
-  </section>
 </main>
 
 <footer class="app-footer">

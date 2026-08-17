@@ -1,12 +1,14 @@
 /* ===== Palette =====
-   Fond crème doux   : #FBFAF7
-   Carte             : #FFFFFF
-   Vert-bleu (marque): #1B5E63
-   Vert-bleu clair   : #EAF3F2
-   Texte principal   : #1F2A2A
-   Texte secondaire  : #5B6E6C
-   Alerte / rupture  : #B0522C
-   Bordure douce     : #DDE7E5
+   Fond crème doux    : #FBFAF7
+   Carte              : #FFFFFF
+   Vert-bleu (marque) : #1B5E63
+   Vert-bleu clair    : #EAF3F2
+   Texte principal    : #1F2A2A
+   Texte secondaire   : #5B6E6C
+   Alerte / rupture   : #B0522C
+   Vert aliments      : #3F7D52
+   Vert aliments clair: #E7F1EA
+   Bordure douce      : #DDE7E5
 */
 
 * { box-sizing: border-box; }
@@ -26,27 +28,17 @@ body {
 
 /* ---------- En-tête ---------- */
 .top-bar {
-  position: relative;
+  background: #1B5E63;
   color: #ffffff;
   padding: env(safe-area-inset-top, 0) 0 0 0;
-  background: url("./abdo_background.png") center center / cover no-repeat;
-  overflow: hidden;
 }
-
 .top-bar-inner {
   max-width: 640px;
   margin: 0 auto;
-  padding: 18px 20px;
+  padding: 18px 20px 10px;
   display: flex;
   align-items: center;
   gap: 12px;
-
-  position: relative;
-  z-index: 1;
-
-  background: rgba(27, 94, 99, 0.35);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
 .logo-mark {
   display: inline-flex;
@@ -55,17 +47,84 @@ body {
 }
 .top-bar h1 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 700;
   margin: 0;
   letter-spacing: 0.2px;
 }
+
+/* ---------- Menu à onglets ---------- */
+.tab-menu {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  gap: 6px;
+  padding: 6px 12px 0;
+}
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.72);
+  padding: 10px 6px 12px;
+  border-radius: 12px 12px 0 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.tab-btn .tab-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  opacity: 0.85;
+}
+.tab-btn.active {
+  background: #FBFAF7;
+  color: #1B5E63;
+}
+.tab-btn.active .tab-icon { opacity: 1; }
+.tab-btn:active { opacity: 0.8; }
 
 /* ---------- Contenu ---------- */
 main {
   max-width: 640px;
   margin: 0 auto;
   padding: 22px 18px 60px;
+}
+
+.view[hidden] { display: none; }
+
+.section-banner {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.disclaimer {
+  background: #E7F1EA;
+  border: 1px solid #C9E0D0;
+  color: #2E5A3B;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.disclaimer strong { display: block; margin-bottom: 3px; }
+
+.disclaimer-urgent {
+  background: #F5E4DB;
+  border-color: #E3C1AD;
+  color: #8A3B1D;
 }
 
 .search-section {
@@ -99,7 +158,7 @@ main {
   flex-shrink: 0;
 }
 
-#search-input {
+.search-box input {
   flex: 1;
   border: none;
   outline: none;
@@ -110,7 +169,7 @@ main {
   min-width: 0;
   font-family: inherit;
 }
-#search-input::placeholder {
+.search-box input::placeholder {
   color: #9AAAA8;
 }
 
@@ -134,57 +193,55 @@ main {
   color: #5B6E6C;
 }
 
-/* ---------- Résultats ---------- */
+/* ---------- Résultats génériques ---------- */
 .results {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.med-card {
+.card {
   background: #ffffff;
   border: 1px solid #DDE7E5;
   border-left: 6px solid #1B5E63;
   border-radius: 14px;
   padding: 16px 18px;
 }
-.med-card.unavailable {
-  border-left-color: #B0522C;
-}
 
-.med-name {
+.card-title {
   font-size: 21px;
   font-weight: 700;
   color: #1F2A2A;
   margin: 0 0 2px;
 }
 
-.med-dosage {
+.card-subtitle {
   font-size: 17px;
   color: #1B5E63;
   font-weight: 600;
   margin: 0 0 10px;
 }
 
-.med-details {
+.card-details {
   display: grid;
   grid-template-columns: auto 1fr;
-  row-gap: 4px;
+  row-gap: 6px;
   column-gap: 10px;
   font-size: 16px;
 }
-.med-details dt {
+.card-details dt {
   color: #5B6E6C;
   font-weight: 600;
 }
-.med-details dd {
+.card-details dd {
   margin: 0;
   color: #1F2A2A;
 }
 
-.status-badge {
+.badge {
   display: inline-block;
   margin-top: 10px;
+  margin-right: 6px;
   padding: 5px 12px;
   border-radius: 999px;
   font-size: 14px;
@@ -192,10 +249,42 @@ main {
   background: #EAF3F2;
   color: #1B5E63;
 }
-.status-badge.unavailable {
+.badge.unavailable {
   background: #F5E4DB;
   color: #B0522C;
 }
+
+/* --- Médicaments --- */
+.med-card.unavailable { border-left-color: #B0522C; }
+
+/* --- Aliments --- */
+.aliment-card { border-left-color: #3F7D52; }
+.badge.aliment { background: #E7F1EA; color: #2E5A3B; }
+.precaution-box {
+  margin-top: 12px;
+  background: #FDF6EC;
+  border: 1px solid #EFDDBB;
+  color: #7A5A16;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.precaution-box strong { color: #8A6414; }
+
+/* --- Symptômes --- */
+.symptome-card { border-left-color: #B0522C; }
+.urgence-box {
+  margin-top: 12px;
+  background: #F5E4DB;
+  border: 1px solid #E3C1AD;
+  color: #8A3B1D;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.urgence-box strong { color: #8A3B1D; }
 
 mark {
   background: #FCE8B0;
@@ -245,5 +334,7 @@ mark {
 /* Écrans très étroits */
 @media (max-width: 360px) {
   body { font-size: 17px; }
-  #search-input { font-size: 19px; }
+  .search-box input { font-size: 19px; }
+  .tab-btn { font-size: 12px; }
+  .tab-btn .tab-icon { width: 26px; height: 26px; }
 }
